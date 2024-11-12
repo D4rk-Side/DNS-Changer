@@ -1,7 +1,12 @@
-import subprocess, re, os
+import subprocess, re, os, time
 
-print("""Welcome to DNS changer
-DNS servers list:
+cf_t = ('Cloudflare', '1.1.1.1', '1.0.0.1')
+g_t = ('Google public', '8.8.8.8', '8.8.4.4')
+od_t = ('OpenDNS', '208.67.222.222', '208.67.220.220')
+sh_t = ('Shecan', '178.22.122.100', '185.51.200.2')
+a_t = ('Azad(403)', '10.202.10.202', '10.202.10.102')
+print('Welcome to DNS changer')
+print("""DNS servers list:
      ________________________________________
      | DNS server name  | DNS server number |
      |--------------------------------------|
@@ -18,63 +23,82 @@ DNS servers list:
      |>>>>>>>> created by D4rk $ide <<<<<<<<|
      ----------------------------------------
      """)
-x = input("select dns: ")
-a = input("""select your os:
-	___________________________
-	| OS name |   OS number   |
-	|-------------------------|
-	|  Linux  |      (1)      |
-	|-------------------------|
-	| Windows |      (2)      |
-	|-------------------------|
-	|   Mac   | Coming soon...|
-	|-------------------------|
-""")
-if a == "1":
-    if x == "1":
-        os.system("echo nameserver 1.1.1.1 > /etc/resolv.conf && echo nameserver 1.0.0.1 >> /etc/resolv.conf")
-        print("Done!")
-    elif x == "2":
-        os.system("echo nameserver 8.8.8.8 > /etc/resolv.conf && echo nameserver 8.8.4.4 >> /etc/resolv.conf")
-        print("Done!")
-    elif x == "3":
-        os.system("echo nameserver 208.67.222.222 > /etc/resolv.conf && echo nameserver 208.67.220.220 >> /etc/resolv.conf")
-        print("Done!")
-    elif x == "4":
-        os.system("echo nameserver 178.22.122.100 > /etc/resolv.conf && echo nameserver 185.51.200.2 >> /etc/resolv.conf")
-        print("Done!")
-    elif x == "5":
-        os.system("echo nameserver 10.202.10.202 > /etc/resolv.conf && echo nameserver 10.202.10.102 >> /etc/resolv.conf")
-        print("Done!")
+sd = input("select dns: ")  # 'sd' -> selected DNS
+uo = input("""    ___________________________
+    | OS name |   OS number   |
+    |-------------------------|
+    |  Linux  |      (1)      |
+    |-------------------------|
+    | Windows |      (2)      |
+    |-------------------------|
+    |   Mac   | Coming soon...|
+    |-------------------------|
+
+select your os: """)  # 'uo' -> user os
+if uo == "1":
+    if sd == "1":
+        os.system(f"echo nameserver {cf_t[1]} > /etc/resolv.conf && echo nameserver {cf_t[2]} >> /etc/resolv.conf")
+    elif sd == "2":
+        os.system(f"echo nameserver {g_t[1]} > /etc/resolv.conf && echo nameserver {g_t[2]} >> /etc/resolv.conf")
+    elif sd == "3":
+        os.system(f"echo nameserver {od_t[1]} > /etc/resolv.conf && echo nameserver {od_t[2]} >> /etc/resolv.conf")
+    elif sd == "4":
+        os.system(f"echo nameserver {sh_t[1]} > /etc/resolv.conf && echo nameserver {sh_t[2]} >> /etc/resolv.conf")
+    elif sd == "5":
+        os.system(f"echo nameserver {a_t[1]} > /etc/resolv.conf && echo nameserver {a_t[2]} >> /etc/resolv.conf")
     else:
         print("please type your dns server number.")
-elif a == "2":
-    cmd_net_check = subprocess.run(['ipconfig', '/all'], capture_output=True).stdout.decode()
-    net_find = str(re.findall("Ethernet adapter (.*):", cmd_net_check))
-    if x == 1:
-        cmd_dns_set = subprocess.run(
-            ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{net_find.strip("['']")}"', 'static', '1.1.1.1'])
-        cmd_dns_set1 = subprocess.run(
-            ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{net_find.strip("['']")}"', '1.0.0.1', 'index=2'])
-    elif x == 2:
-        cmd_dns_set = subprocess.run(
-            ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{net_find.strip("['']")}"', 'static', '8.8.8.8'])
-        cmd_dns_set1 = subprocess.run(
-            ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{net_find.strip("['']")}"', '8.8.4.4', 'index=2'])
-    elif x == 3:
-        cmd_dns_set = subprocess.run(
-            ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{net_find.strip("['']")}"', 'static', '208.67.222.222'])
-        cmd_dns_set1 = subprocess.run(
-            ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{net_find.strip("['']")}"', '208.67.220.220', 'index=2'])
-    elif x == 4:
-        cmd_dns_set = subprocess.run(
-            ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{net_find.strip("['']")}"', 'static', '178.22.122.100'])
-        cmd_dns_set1 = subprocess.run(
-            ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{net_find.strip("['']")}"', '185.51.200.2', 'index=2'])
-    elif x == 5:
-        cmd_dns_set = subprocess.run(
-            ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{net_find.strip("['']")}"', 'static', '10.202.10.202'])
-        cmd_dns_set1 = subprocess.run(
-            ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{net_find.strip("['']")}"', '10.202.10.102', 'index=2'])
+    udl = subprocess.run(['cat', '/etc/resolv.conf'], capture_output=True).stdout.decode()  # 'udl' -> user dns linux
+    udlf = tuple(re.findall('nameserver (.*)', udl))  # 'udlf' -> user dns linux find
+    if udlf == cf_t[1:]:
+        print(f"You are now using the '{cf_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('clear')
+    elif udlf == g_t[1:]:
+        print(f"You are now using the '{g_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('clear')
+    elif udlf == od_t[1:]:
+        print(f"You are now using the '{od_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('clear')
+    elif udlf == sh_t[1:]:
+        print(f"You are now using the '{sh_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('clear')
+    elif udlf == a_t[1:]:
+        print(f"You are now using the '{a_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('clear')
+elif uo == "2":
+    cnc = subprocess.run(['ipconfig', '/all'], capture_output=True).stdout.decode()  # 'cnc' -> cmd net check
+    cnf = str(re.findall("Ethernet adapter (.*):", cnc))  # 'cnf' -> cmd net find
+    if sd == 1:
+        cpds = subprocess.run(
+            ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{cnf.strip("['']")}"', 'static',
+             cf_t[1]])  # 'cpds' -> cmd primary DNS set
+        csds = subprocess.run(
+            ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{cnf.strip("['']")}"', cf_t[2],
+             'index=2'])  # 'csds' -> cmd secondary DNS set
+    elif sd == 2:
+        cpds = subprocess.run(
+            ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{cnf.strip("['']")}"', 'static', g_t[1]])
+        csds = subprocess.run(
+            ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{cnf.strip("['']")}"', g_t[2], 'index=2'])
+    elif sd == 3:
+        cpds = subprocess.run(
+            ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{cnf.strip("['']")}"', 'static', od_t[1]])
+        csds = subprocess.run(
+            ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{cnf.strip("['']")}"', od_t[2], 'index=2'])
+    elif sd == 4:
+        cpds = subprocess.run(
+            ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{cnf.strip("['']")}"', 'static', sh_t[1]])
+        csds = subprocess.run(
+            ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{cnf.strip("['']")}"', sh_t[2], 'index=2'])
+    elif sd == 5:
+        cpds = subprocess.run(
+            ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{cnf.strip("['']")}"', 'static', a_t[1]])
+        csds = subprocess.run(
+            ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{cnf.strip("['']")}"', a_t[2], 'index=2'])
     else:
         print("please type your dns server number.")

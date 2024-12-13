@@ -23,7 +23,7 @@ print("""DNS servers list:
      |>>>>>>>> created by D4rk $ide <<<<<<<<|
      ----------------------------------------
      """)
-sd = int(input("select dns: "))  # 'sd' -> selected DNS
+sd = input("select dns: ")  # 'sd' -> selected DNS
 uo = input("""    ___________________________
     | OS name |   OS number   |
     |-------------------------|
@@ -75,29 +75,29 @@ elif uo == "2":
     cnf = str(re.findall("Ethernet adapter (.*):", cnc))  # 'cnf' -> cmd net find
     cnbf = str(re.findall("Ethernet adapter Bluetooth (.*):", cnc))  # 'cnbf' -> cmd net bluetooth find
     es = str(re.findall('Ethernet', cnf))  # 'es' -> Ethernet select
-    if sd == 1:
+    if sd == "1":
         cpds = subprocess.run(
             ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{es.strip("['']")}"', 'static',
              cf_t[1]])  # 'cpds' -> cmd primary DNS set
         csds = subprocess.run(
             ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{es.strip("['']")}"', cf_t[2],
              'index=2'])  # 'csds' -> cmd secondary DNS set
-    elif sd == 2:
+    elif sd == "2":
         cpds = subprocess.run(
             ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{es.strip("['']")}"', 'static', g_t[1]])
         csds = subprocess.run(
             ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{es.strip("['']")}"', g_t[2], 'index=2'])
-    elif sd == 3:
+    elif sd == "3":
         cpds = subprocess.run(
             ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{es.strip("['']")}"', 'static', od_t[1]])
         csds = subprocess.run(
             ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{es.strip("['']")}"', od_t[2], 'index=2'])
-    elif sd == 4:
+    elif sd == "4":
         cpds = subprocess.run(
             ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{es.strip("['']")}"', 'static', sh_t[1]])
         csds = subprocess.run(
             ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{es.strip("['']")}"', sh_t[2], 'index=2'])
-    elif sd == 5:
+    elif sd == "5":
         cpds = subprocess.run(
             ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{es.strip("['']")}"', 'static', a_t[1]])
         csds = subprocess.run(

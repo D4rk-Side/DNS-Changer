@@ -23,7 +23,7 @@ print("""DNS servers list:
      |>>>>>>>> created by D4rk $ide <<<<<<<<|
      ----------------------------------------
      """)
-sd = input("select dns: ")  # 'sd' -> selected DNS
+sd = int(input("select dns: "))  # 'sd' -> selected DNS
 uo = input("""    ___________________________
     | OS name |   OS number   |
     |-------------------------|
@@ -73,6 +73,8 @@ if uo == "1":
 elif uo == "2":
     cnc = subprocess.run(['ipconfig', '/all'], capture_output=True).stdout.decode()  # 'cnc' -> cmd net check
     cnf = str(re.findall("Ethernet adapter (.*):", cnc))  # 'cnf' -> cmd net find
+    cnbf = str(re.findall("Ethernet adapter Bluetooth (.*):", cnc))  # 'cnbf' -> cmd net bluetooth find
+    es = str(re.findall('Ethernet', cnf))  # 'es' -> Ethernet select
     if sd == 1:
         cpds = subprocess.run(
             ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{cnf.strip("['']")}"', 'static',

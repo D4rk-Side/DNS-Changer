@@ -20,6 +20,8 @@ print("""DNS servers list:
      |--------------------------------------|
      |     Azad(403)    |       (5)         |
      |--------------------------------------|
+     |     flush DNS    |       (f)         |
+     |--------------------------------------|
      |>>>>>>>> created by D4rk $ide <<<<<<<<|
      ----------------------------------------
      """)
@@ -47,7 +49,7 @@ if uo == "1":  # Linux section
     elif sd == "5":
         os.system(f"echo nameserver {a_t[1]} > /etc/resolv.conf && echo nameserver {a_t[2]} >> /etc/resolv.conf")
     else:
-        print("please type your dns server number.")
+        print("please type your dns server code.")
     udl = subprocess.run(['cat', '/etc/resolv.conf'], capture_output=True).stdout.decode()  # 'udl' -> user dns linux
     udlf = tuple(re.findall('nameserver (.*)', udl))  # 'udlf' -> user dns linux find
     if udlf == cf_t[1:]:
@@ -102,5 +104,7 @@ elif uo == "2":  # Windows section
             ['netsh', 'interface', 'ip', 'set', 'dns', f'name="{es.strip("['']")}"', 'static', a_t[1]])
         csds = subprocess.run(
             ['netsh', 'interface', 'ip', 'add', 'dns', f'name="{es.strip("['']")}"', a_t[2], 'index=2'])
+    elif sd == "f":
+        cfd = subprocess.run(['ipconfig', '/flushdns'])
     else:
-        print("please type your dns server number.")
+        print("please type your dns server code.")

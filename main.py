@@ -37,7 +37,7 @@ uo = input("""    ___________________________
     |-------------------------|
 
 select your os: """)  # 'uo' -> user os
-if uo == "1":
+if uo == "1":  # Linux section
     if sd == "1":
         os.system(f"echo nameserver {cf_t[1]} > /etc/resolv.conf && echo nameserver {cf_t[2]} >> /etc/resolv.conf")
     elif sd == "2":
@@ -50,6 +50,28 @@ if uo == "1":
         os.system(f"echo nameserver {a_t[1]} > /etc/resolv.conf && echo nameserver {a_t[2]} >> /etc/resolv.conf")
     else:
         print("please type your dns server code.")
+    udl = subprocess.run(['cat', '/etc/resolv.conf'], capture_output=True).stdout.decode()  # 'udl' -> user dns linux
+    udlf = tuple(re.findall('nameserver (.*)', udl))  # 'udlf' -> user dns linux find
+    if udlf == cf_t[1:]:
+        print(f"You are now using the '{cf_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('clear')
+    elif udlf == g_t[1:]:
+        print(f"You are now using the '{g_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('clear')
+    elif udlf == od_t[1:]:
+        print(f"You are now using the '{od_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('clear')
+    elif udlf == sh_t[1:]:
+        print(f"You are now using the '{sh_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('clear')
+    elif udlf == a_t[1:]:
+        print(f"You are now using the '{a_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('clear')
 elif uo == "2":  # Windows section
     cnc = subprocess.run(['ipconfig', '/all'], capture_output=True).stdout.decode()  # 'cnc' -> cmd net check
     cnf = str(re.findall("Ethernet adapter (.*):", cnc))  # 'cnf' -> cmd net find

@@ -23,6 +23,8 @@ print("""DNS servers list:
      |--------------------------------------|
      |      Begzar      |       (6)         |
      |--------------------------------------|
+     |       DHCP       |       (d)         |
+     |--------------------------------------|
      |     flush DNS    |       (f)         |
      |--------------------------------------|
      |>>>>>>>> created by D4rk $ide <<<<<<<<|
@@ -99,22 +101,20 @@ elif uo == '2':  # Windows section
     cnc = subprocess.run(['ipconfig', '/all'], capture_output=True).stdout.decode()  # 'cnc' -> cmd network check
     cenf = list(re.findall('Ethernet adapter (.*):', cnc))  # 'cenf' -> cmd ethernet network find
     cwnf = list(re.findall('Wireless LAN adapter (.*):', cnc))  # 'cwnf' -> cmd wifi network find
-    # es = str(re.findall('Ethernet', cnf))  # 'es' -> Ethernet select
-    # cnbf = str(re.findall("Ethernet adapter Bluetooth (.*):", cnc))  # 'cnbf' -> cmd network bluetooth find
     if sd == 'f':
         cfd = subprocess.run(['ipconfig', '/flushdns'])  # 'cfd' -> Cmd flush DNS
     else:
         num = 0
         nl = []  # 'nl' -> Network list
-        head = ('    ' + 71 * '_')
-        body = ('    |' + 69 * '-' + '|')
-        print(head, '    |' + (18 * ' ') + 'Network name' + (18 * ' ') + '|   Network number   |', body, sep='\n')
+        head = ('    ' + 89 * '_')
+        body = ('    |' + 87 * '-' + '|')
+        print(head, '    | Connection type |' + (18 * ' ') + 'Network name' + (18 * ' ') + '|   Network number   |', body, sep='\n')
         for network in cenf:
             num += 1
             nn = (int(abs(float(len(network) - 48) // 2)) * ' ' + f'{network}' + int(abs(float(len(network) - 48) / 2)) * ' ' )  # 'nn' -> Network name
             nc = (f'        ({num})         ')  # 'nc' -> Network code
             # print('    |' + int(abs(float(len(network) - 48) // 2)) * ' ' + f'{network}' + int(abs(float(len(network) - 48) / 2)) * ' ' + '|' + f'        ({num})         |', body, sep='\n')
-            print('    |' + nn + '|' + nc + '|', body, sep='\n')
+            print('    |     Ethernet    |' + nn + '|' + nc + '|', body, sep='\n')
             nl.append(network)
 
         for network in cwnf:
@@ -122,29 +122,51 @@ elif uo == '2':  # Windows section
             nn = (int(abs(float(len(network) - 48) // 2)) * ' ' + f'{network}' + int(abs(float(len(network) - 48) / 2)) * ' ' )  # 'nn' -> Network name
             nc = (f'        ({num})         ')  # 'nc' -> Network code
             # print('    |' + int(abs(float(len(network) - 48) // 2)) * ' ' + f'{network}' + int(abs(float(len(network) - 48) / 2)) * ' ' + '|' + f'        ({num})         |', body, sep='\n')
-            print('    |' + nn + '|' + nc + '|', body, sep='\n')
+            print('    |      Wi-Fi      |' + nn + '|' + nc + '|', body, sep='\n')
             nl.append(network)
         ns = int(input('\nselect your network: '))  # 'ns' -> Network select
 
     if sd == '1':
         cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', cf_t[1]])  # 'cpds' -> cmd primary DNS set
         csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', cf_t[2], 'index=2'])  # 'csds' -> cmd secondary DNS set
+        print(f"You are now using the '{cf_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('cls')
     elif sd == '2':
         cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', g_t[1]])
         csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', g_t[2], 'index=2'])
+        print(f"You are now using the '{g_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('cls')
     elif sd == '3':
         cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', od_t[1]])
         csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', od_t[2], 'index=2'])
+        print(f"You are now using the '{od_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('cls')
     elif sd == '4':
         cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', sh_t[1]])
         csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', sh_t[2], 'index=2'])
+        print(f"You are now using the '{sh_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('cls')
     elif sd == '5':
         cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', a_t[1]])
         csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', a_t[2], 'index=2'])
+        print(f"You are now using the '{a_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('cls')
     elif sd == '6':
         cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', b_t[1]])
         csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', b_t[2], 'index=2'])
-
+        print(f"You are now using the '{b_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('cls')
+    elif sd == 'd':
+        cpds = subprocess.run(['netsh', 'interface', 'ipv4', 'set', 'dnsservers', f'name="{nl[ns-1]}"', 'source=dhcp'])
+        print(f"Now your DNS set on Dynamic Host Configuration Protocol(DHCP) \nGood luck!")
+        time.sleep(2)
+        os.system('cls')
     elif sd == 'f':
         pass
     else:

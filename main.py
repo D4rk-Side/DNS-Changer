@@ -5,6 +5,7 @@ g_t = ('Google public', '8.8.8.8', '8.8.4.4')
 od_t = ('OpenDNS', '208.67.222.222', '208.67.220.220')
 sh_t = ('Shecan', '178.22.122.100', '185.51.200.2')
 a_t = ('Azad(403)', '10.202.10.202', '10.202.10.102')
+b_t = ('Begzar', '185.55.226.26', '185.55.225.25')
 print('Welcome to DNS changer')
 print("""DNS servers list:
      ________________________________________
@@ -19,6 +20,8 @@ print("""DNS servers list:
      |      Shecan      |       (4)         |
      |--------------------------------------|
      |     Azad(403)    |       (5)         |
+     |--------------------------------------|
+     |      Begzar      |       (6)         |
      |--------------------------------------|
      |     flush DNS    |       (f)         |
      |--------------------------------------|
@@ -61,6 +64,8 @@ if uo == '1':  # Linux section
         os.system(f'echo nameserver {sh_t[1]} > /etc/resolv.conf && echo nameserver {sh_t[2]} >> /etc/resolv.conf')
     elif sd == '5':
         os.system(f'echo nameserver {a_t[1]} > /etc/resolv.conf && echo nameserver {a_t[2]} >> /etc/resolv.conf')
+    elif sd == '6':
+        os.system(f'echo nameserver {b_t[1]} > /etc/resolv.conf && echo nameserver {b_t[2]} >> /etc/resolv.conf')
     else:
         print('please type your dns server code.')
     udl = subprocess.run(['cat', '/etc/resolv.conf'], capture_output=True).stdout.decode()  # 'udl' -> user dns linux
@@ -85,6 +90,11 @@ if uo == '1':  # Linux section
         print(f"You are now using the '{a_t[0]}' DNS \nGood luck!")
         time.sleep(2)
         os.system('clear')
+    elif udlf == b_t[1:]:
+        print(f"You are now using the '{b_t[0]}' DNS \nGood luck!")
+        time.sleep(2)
+        os.system('clear')
+
 elif uo == '2':  # Windows section
     cnc = subprocess.run(['ipconfig', '/all'], capture_output=True).stdout.decode()  # 'cnc' -> cmd network check
     cenf = list(re.findall('Ethernet adapter (.*):', cnc))  # 'cenf' -> cmd ethernet network find
@@ -131,6 +141,10 @@ elif uo == '2':  # Windows section
     elif sd == '5':
         cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', a_t[1]])
         csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', a_t[2], 'index=2'])
+    elif sd == '6':
+        cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', b_t[1]])
+        csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', b_t[2], 'index=2'])
+
     elif sd == 'f':
         pass
     else:

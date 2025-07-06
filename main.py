@@ -3,33 +3,35 @@ import subprocess, re, os, time
 cf_t = ('Cloudflare', '1.1.1.1', '1.0.0.1')
 g_t = ('Google public', '8.8.8.8', '8.8.4.4')
 od_t = ('OpenDNS', '208.67.222.222', '208.67.220.220')
-sh_t = ('Shecan', '178.22.122.100', '185.51.200.2')
+sh_t = ('Shecan', '185.51.200.2', '178.22.122.100')
 a_t = ('Azad(403)', '10.202.10.202', '10.202.10.102')
 b_t = ('Begzar', '185.55.226.26', '185.55.225.25')
+e_t = ('electro', '78.157.42.100', '78.157.42.101')
+dns_dict = {
+    'Cloudflare' : ['1.1.1.1', '1.0.0.1'],
+    'Google public' : ['8.8.8.8', '8.8.4.4'],
+    'OpenDNS' : ['208.67.222.222', '208.67.220.220'],
+    'Shecan' : ['185.51.200.2', '178.22.122.100'],
+    'Azad(403)' : ['10.202.10.202', '10.202.10.102'],
+    'Begzar' : ['185.55.226.26', '185.55.225.25'],
+    'electro' : ['78.157.42.100', '78.157.42.101']
+}
 print('Welcome to DNS changer')
-print("""DNS servers list:
-     ________________________________________
-     | DNS server name  | DNS server number |
-     |--------------------------------------|
-     |    Cloudflare    |       (1)         |
-     |--------------------------------------|
-     |      Google      |       (2)         |
-     |--------------------------------------|
-     |     OpenDNS      |       (3)         |
-     |--------------------------------------|
-     |      Shecan      |       (4)         |
-     |--------------------------------------|
-     |     Azad(403)    |       (5)         |
-     |--------------------------------------|
-     |      Begzar      |       (6)         |
-     |--------------------------------------|
-     |       DHCP       |       (d)         |
-     |--------------------------------------|
-     |     flush DNS    |       (f)         |
-     |--------------------------------------|
-     |>>>>>>>> created by D4rk $ide <<<<<<<<|
-     ----------------------------------------
-     """)
+dl = 0
+dl_head = ('     ' + 42 * '_')  # 'dl_head' -> Dns list header
+dl_body = ('     |' + 40 * '-' + '|')  # 'dl_body' -> Dns list body
+dl_foot = ('     |>>>>>>>>> created by D4rk $ide <<<<<<<<<|' + '\n' +'     ' + 42 * '-')  # 'dl_foot' -> Dns list footer
+print(dl_head, '     |  DNS server name  |  DNS server number |', dl_body, sep='\n')
+dls = []
+for dns in dns_dict:
+    dl += 1
+    dn = (int(abs(float(len(dns) - 19) // 2)) * ' ' + f'{dns}' + int(abs(float(len(dns) - 19) / 2)) * ' ')
+    dc = (f'        ({dl})         ')
+    print('     |' + dn + '|' + dc + '|', dl_body, sep='\n')
+    dls.append(dns)
+DHCP = (int(abs(float(len('DHCP') - 19) // 2)) * ' ' + 'DHCP' + int(abs(float(len('DHCP') - 19) / 2)) * ' ')
+Flush = (int(abs(float(len('flush DNS') - 19) // 2)) * ' ' + 'flush DNS' + int(abs(float(len('flush DNS') - 19) / 2)) * ' ')
+print('     |' + DHCP + '|        (d)         |', dl_body, '     |' + Flush + '|        (f)         |', dl_body, dl_foot, sep='\n')
 sd = input('select dns: ')  # 'sd' -> selected DNS
 if sd == 'f':
     uo = input("""    ___________________________
@@ -103,6 +105,8 @@ elif uo == '2':  # Windows section
     cwnf = list(re.findall('Wireless LAN adapter (.*):', cnc))  # 'cwnf' -> cmd wifi network find
     if sd == 'f':
         cfd = subprocess.run(['ipconfig', '/flushdns'])  # 'cfd' -> Cmd flush DNS
+        time.sleep(2)
+        os.system('cls')
     else:
         num = 0
         nl = []  # 'nl' -> Network list
@@ -125,49 +129,20 @@ elif uo == '2':  # Windows section
             print('    |      Wi-Fi      |' + nn + '|' + nc + '|', body, sep='\n')
             nl.append(network)
         ns = int(input('\nselect your network: '))  # 'ns' -> Network select
-
-    if sd == '1':
-        cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', cf_t[1]])  # 'cpds' -> cmd primary DNS set
-        csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', cf_t[2], 'index=2'])  # 'csds' -> cmd secondary DNS set
-        print(f"You are now using the '{cf_t[0]}' DNS \nGood luck!")
+    def dns_loader_windows(dnscode, dnsname):
+        subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', dns_dict[dnscode][0]])
+        subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', dns_dict[dnscode][1], 'index=2'])
+        print(f"You are now using the '{dnsname}' DNS \nGood luck!")
         time.sleep(2)
         os.system('cls')
-    elif sd == '2':
-        cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', g_t[1]])
-        csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', g_t[2], 'index=2'])
-        print(f"You are now using the '{g_t[0]}' DNS \nGood luck!")
-        time.sleep(2)
-        os.system('cls')
-    elif sd == '3':
-        cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', od_t[1]])
-        csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', od_t[2], 'index=2'])
-        print(f"You are now using the '{od_t[0]}' DNS \nGood luck!")
-        time.sleep(2)
-        os.system('cls')
-    elif sd == '4':
-        cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', sh_t[1]])
-        csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', sh_t[2], 'index=2'])
-        print(f"You are now using the '{sh_t[0]}' DNS \nGood luck!")
-        time.sleep(2)
-        os.system('cls')
-    elif sd == '5':
-        cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', a_t[1]])
-        csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', a_t[2], 'index=2'])
-        print(f"You are now using the '{a_t[0]}' DNS \nGood luck!")
-        time.sleep(2)
-        os.system('cls')
-    elif sd == '6':
-        cpds = subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', b_t[1]])
-        csds = subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', b_t[2], 'index=2'])
-        print(f"You are now using the '{b_t[0]}' DNS \nGood luck!")
-        time.sleep(2)
-        os.system('cls')
-    elif sd == 'd':
+    if sd == 'd':
         cpds = subprocess.run(['netsh', 'interface', 'ipv4', 'set', 'dnsservers', f'name="{nl[ns-1]}"', 'source=dhcp'])
         print(f"Now your DNS set on Dynamic Host Configuration Protocol(DHCP) \nGood luck!")
         time.sleep(2)
         os.system('cls')
     elif sd == 'f':
         pass
+    elif sd != None:
+        dns_loader_windows((dls[int(sd) - 1]), dls[int(sd) - 1])
     else:
-        print('please type your dns server code.')
+        print('Something went wrong!')

@@ -14,7 +14,7 @@ A simple project to quickly change your system's DNS on Windows. With this tool,
 * **Revert to Default:** The option to restore your DNS settings to their default state.
 
 #### Technologies Used
-This project is developed using the **Python** programming language and the **Tkinter** GUI library.
+This project is developed using the **Python** programming language.
 
 * `Python`: The main language of the project.
 
@@ -31,8 +31,9 @@ https://www.python.org/downloads/
 
 3. **Run the application:**
     ```bash
-    python dns_changer.py
+    python main.py
     ```
+    or double-click on `run.bat`(Windows only)
 
 #### How to Contribute
 We welcome your contributions to this project! If you have an idea for an improvement, feel free to open a new [Issue](https://github.com/Amirmohammad-Seifi/DNS-Changer/issues) or submit a [Pull Request](https://github.com/Amirmohammad-Seifi/DNS-Changer/pulls).

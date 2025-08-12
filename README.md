@@ -19,7 +19,7 @@ This project is developed using the **Python** programming language and the **Tk
 
 #### How to Install and Run
 
-1.First download Python from the following site and then install it.
+1. **First download Python from the following site and then install it**
 https://www.python.org/downloads/ 
 
 2. **Clone the repository:**

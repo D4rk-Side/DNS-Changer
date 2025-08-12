@@ -40,4 +40,4 @@ This project is developed using the **Python** programming language and the **Tk
 We welcome your contributions to this project! If you have an idea for an improvement, feel free to open a new [Issue](https://github.com/Amirmohammad-Seifi/DNS-Changer/issues) or submit a [Pull Request](https://github.com/Amirmohammad-Seifi/DNS-Changer/pulls).
 
 #### License
-This project is licensed under the MIT License. See the `LICENSE` file for more details.
+This project is licensed under the GPL-3.0 License. See the `LICENSE` file for more details.

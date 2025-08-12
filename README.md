@@ -5,39 +5,39 @@
   <img src="https://img.shields.io/github/license/Amirmohammad-Seifi/DNS-Changer?style=for-the-badge&color=blueviolet" />
 </p>
 
-پروژه‌ای ساده برای تغییر سریع DNS سیستم در ویندوز. با استفاده از این ابزار، می‌توانید به راحتی و تنها با یک کلیک، آدرس DNS خود را به یکی از سرویس‌های محبوب و پرسرعت تغییر دهید.
+A simple project to quickly change your system's DNS on Windows. With this tool, you can easily switch your DNS address to a popular and high-speed service with just a single click.
 
-#### ویژگی‌ها
-* **رابط کاربری ساده و مینیمال:** طراحی شده برای استفاده آسان.
-* **DNSهای از پیش تعریف شده:** شامل سرویس‌های معروف مانند Google, Cloudflare و Shecan.
-* **بازگشت به حالت اولیه:** امکان برگرداندن تنظیمات DNS به حالت پیش‌فرض.
+#### Features
+* **Simple and Minimalist UI:** Designed for ease of use.
+* **Predefined DNS Servers:** Includes well-known services like Google, Cloudflare, and Shecan.
+* **Revert to Default:** The option to restore your DNS settings to their default state.
 
-#### تکنولوژی‌های استفاده شده
-این پروژه با استفاده از زبان برنامه‌نویسی **Python** و کتابخانه رابط کاربری **Tkinter** توسعه داده شده است.
+#### Technologies Used
+This project is developed using the **Python** programming language and the **Tkinter** GUI library.
 
-* `Python`: زبان اصلی پروژه.
-* `Tkinter`: برای ساخت رابط کاربری گرافیکی (GUI).
+* `Python`: The main language of the project.
+* `Tkinter`: Used for building the graphical user interface (GUI).
 
-#### نحوه نصب و اجرا
+#### How to Install and Run
 
-۱. **دانلود ریپازیتوری:**
+1. **Clone the repository:**
     ```bash
     git clone [https://github.com/Amirmohammad-Seifi/DNS-Changer.git](https://github.com/Amirmohammad-Seifi/DNS-Changer.git)
     cd DNS-Changer
     ```
 
-۲. **نصب وابستگی‌ها:**
+2. **Install dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
 
-۳. **اجرای برنامه:**
+3. **Run the application:**
     ```bash
     python dns_changer.py
     ```
 
-#### نحوه مشارکت
-از مشارکت شما در توسعه این پروژه استقبال می‌کنیم! اگر ایده‌ای برای بهبود دارید، می‌توانید یک [Issue جدید](https://github.com/Amirmohammad-Seifi/DNS-Changer/issues) باز کنید یا یک [Pull Request](https://github.com/Amirmohammad-Seifi/DNS-Changer/pulls) ارسال کنید.
+#### How to Contribute
+We welcome your contributions to this project! If you have an idea for an improvement, feel free to open a new [Issue](https://github.com/Amirmohammad-Seifi/DNS-Changer/issues) or submit a [Pull Request](https://github.com/Amirmohammad-Seifi/DNS-Changer/pulls).
 
-#### لایسنس
-این پروژه تحت لایسنس MIT منتشر شده است. برای اطلاعات بیشتر، فایل `LICENSE` را مشاهده کنید.
+#### License
+This project is licensed under the MIT License. See the `LICENSE` file for more details.

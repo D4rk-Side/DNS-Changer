@@ -24,16 +24,11 @@ https://www.python.org/downloads/
 
 2. **Clone the repository:**
     ```bash
-    git clone [https://github.com/Amirmohammad-Seifi/DNS-Changer.git](https://github.com/Amirmohammad-Seifi/DNS-Changer.git)
+    git clone https://github.com/Amirmohammad-Seifi/DNS-Changer.git
     cd DNS-Changer
     ```
 
-3. **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4. **Run the application:**
+3. **Run the application:**
     ```bash
     python dns_changer.py
     ```

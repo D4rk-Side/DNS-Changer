@@ -19,18 +19,21 @@ This project is developed using the **Python** programming language and the **Tk
 
 #### How to Install and Run
 
-1. **Clone the repository:**
+1.First download Python from the following site and then install it.
+https://www.python.org/downloads/ 
+
+2. **Clone the repository:**
     ```bash
     git clone [https://github.com/Amirmohammad-Seifi/DNS-Changer.git](https://github.com/Amirmohammad-Seifi/DNS-Changer.git)
     cd DNS-Changer
     ```
 
-2. **Install dependencies:**
+3. **Install dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
 
-3. **Run the application:**
+4. **Run the application:**
     ```bash
     python dns_changer.py
     ```

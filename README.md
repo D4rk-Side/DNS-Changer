@@ -16,7 +16,6 @@ A simple project to quickly change your system's DNS on Windows. With this tool,
 This project is developed using the **Python** programming language and the **Tkinter** GUI library.
 
 * `Python`: The main language of the project.
-* `Tkinter`: Used for building the graphical user interface (GUI).
 
 #### How to Install and Run
 

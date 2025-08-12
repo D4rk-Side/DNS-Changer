@@ -1,6 +1,7 @@
 ### DNS Changer
 <p align="center">
   <img src="https://img.shields.io/github/stars/Amirmohammad-Seifi/DNS-Changer?style=for-the-badge&logo=github&color=FFD700" />
+  <img src="<img src="https://img.shields.io/github/watchers/Amirmohammad-Seifi/DNS-Changer?style=for-the-badge&logo=github" />
   <img src="https://img.shields.io/github/forks/Amirmohammad-Seifi/DNS-Changer?style=for-the-badge&logo=github" />
   <img src="https://img.shields.io/github/license/Amirmohammad-Seifi/DNS-Changer?style=for-the-badge&color=blueviolet" />
 </p>

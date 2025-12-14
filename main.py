@@ -36,6 +36,7 @@ dns_dict = {
     }
 system, node, release, version, machine, cpu = platform.uname()
 print('Welcome to DNS changer')
+valid_networks = []
 match system:
     case 'Windows':  # Windows section
         cnc = subprocess.run(['ipconfig', '/all'], capture_output=True).stdout.decode()  # 'cnc' -> cmd network check
@@ -62,8 +63,8 @@ match system:
         match release:
             case '7':
                 def dns_loader_win7(dnscode, dnsname):
-                    cpds = os.system(f'netsh interface ipv4 set dns "{nl[ns-1]}" static {dns_dict[dnscode][0]}')  # 'cpds' -> cmd primary DNS set
-                    csds = os.system(f'netsh interface ipv4 add dns "{nl[ns-1]}" {dns_dict[dnscode][1]} index=2')  # 'csds' -> cmd secondary DNS set
+                    cpds = os.system(f'netsh interface ipv4 set dns "{nl[int(ns) - 1]}" static {dns_dict[dnscode][0]}')  # 'cpds' -> cmd primary DNS set
+                    csds = os.system(f'netsh interface ipv4 add dns "{nl[int(ns) - 1]}" {dns_dict[dnscode][1]} index=2')  # 'csds' -> cmd secondary DNS set
                     print(f"You are now using the '{dnsname}' DNS \nGood luck!")
                     time.sleep(2)
                     os.system('cls')
@@ -87,18 +88,24 @@ match system:
                                     nc = (f'        ({num})         ')  # 'nc' -> Network code
                                     print('    |     Ethernet    |' + nn + '|' + nc + '|', body, sep='\n')
                                     nl.append(network)
-
                                 for network in cwnf:
                                     num += 1
                                     nn = (int(abs(float(len(network) - 48) // 2)) * ' ' + f'{network}' + int(abs(float(len(network) - 48) / 2)) * ' ' )  # 'nn' -> Network name
                                     nc = (f'        ({num})         ')  # 'nc' -> Network code
                                     print('    |      Wi-Fi      |' + nn + '|' + nc + '|', body, sep='\n')
                                     nl.append(network)
-                                ns = int(input('\nselect your network: '))  # 'ns' -> Network select
-                                cpds = os.system(f'netsh interface ipv4 set dns "{nl[ns-1]}" dhcp')
-                                print(f"Now your DNS set on Dynamic Host Configuration Protocol(DHCP) \nGood luck!")
-                                time.sleep(2)
-                                os.system('cls')
+                                for i in range(1, len(nl) + 1):
+                                    valid_networks.append(str(i))
+                                while True:
+                                    ns = input('select your network: ')  # 'ns' -> Network select
+                                    if ns in valid_networks:
+                                        cpds = os.system(f'netsh interface ipv4 set dns "{nl[int(ns) - 1]}" dhcp')
+                                        print(f"Now your DNS set on Dynamic Host Configuration Protocol(DHCP) \nGood luck!")
+                                        time.sleep(2)
+                                        os.system('cls')
+                                        break
+                                    else:
+                                        print('Please enter a valid network code.')
                             case _:
                                 num = 0
                                 nl = []  # 'nl' -> Network list
@@ -111,22 +118,28 @@ match system:
                                     nc = (f'        ({num})         ')  # 'nc' -> Network code
                                     print('    |     Ethernet    |' + nn + '|' + nc + '|', body, sep='\n')
                                     nl.append(network)
-
                                 for network in cwnf:
                                     num += 1
                                     nn = (int(abs(float(len(network) - 48) // 2)) * ' ' + f'{network}' + int(abs(float(len(network) - 48) / 2)) * ' ' )  # 'nn' -> Network name
                                     nc = (f'        ({num})         ')  # 'nc' -> Network code
                                     print('    |      Wi-Fi      |' + nn + '|' + nc + '|', body, sep='\n')
                                     nl.append(network)
-                                ns = int(input('\nselect your network: '))  # 'ns' -> Network select
-                                dns_loader_win7((dls[int(sd) - 1]), dls[int(sd) - 1])
+                                for i in range(1, len(nl) + 1):
+                                    valid_networks.append(str(i))
+                                while True:
+                                    ns = input('select your network: ')  # 'ns' -> Network select
+                                    if ns in valid_networks:
+                                        dns_loader_win7((dls[int(sd) - 1]), dls[int(sd) - 1])
+                                        break
+                                    else:
+                                        print('Please enter a valid network code.')
                         break
                     else:
-                        print('Please enter a valid code.')
+                        print('Please enter a valid DNS code.')
             case _:
                 def dns_loader_windows(dnscode, dnsname):
-                    subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[ns-1]}"', 'static', dns_dict[dnscode][0]])
-                    subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[ns-1]}"', dns_dict[dnscode][1], 'index=2'])
+                    subprocess.run(['netsh', 'interface', 'ip', 'set', 'dns', f'name="{nl[int(ns) - 1]}"', 'static', dns_dict[dnscode][0]])
+                    subprocess.run(['netsh', 'interface', 'ip', 'add', 'dns', f'name="{nl[int(ns) - 1]}"', dns_dict[dnscode][1], 'index=2'])
                     print(f"You are now using the '{dnsname}' DNS \nGood luck!")
                     time.sleep(2)
                     os.system('cls')
@@ -157,11 +170,18 @@ match system:
                                     nc = (f'        ({num})         ')  # 'nc' -> Network code
                                     print('    |      Wi-Fi      |' + nn + '|' + nc + '|', body, sep='\n')
                                     nl.append(network)
-                                ns = int(input('\nselect your network: '))  # 'ns' -> Network select
-                                cpds = subprocess.run(['netsh', 'interface', 'ipv4', 'set', 'dnsservers', f'name="{nl[ns-1]}"', 'source=dhcp'])
-                                print(f"Now your DNS set on Dynamic Host Configuration Protocol(DHCP) \nGood luck!")
-                                time.sleep(2)
-                                os.system('cls')
+                                for i in range(1, len(nl) + 1):
+                                    valid_networks.append(str(i))
+                                while True:
+                                    ns = input('select your network: ')  # 'ns' -> Network select
+                                    if ns in valid_networks:
+                                        cpds = subprocess.run(['netsh', 'interface', 'ipv4', 'set', 'dnsservers', f'name="{nl[int(ns) - 1]}"', 'source=dhcp'])
+                                        print(f"Now your DNS set on Dynamic Host Configuration Protocol(DHCP) \nGood luck!")
+                                        time.sleep(2)
+                                        os.system('cls')
+                                        break
+                                    else:
+                                        print('Please enter a valid network code.')
                             case _:
                                 num = 0
                                 nl = []  # 'nl' -> Network list
@@ -181,11 +201,18 @@ match system:
                                     nc = (f'        ({num})         ')  # 'nc' -> Network code
                                     print('    |      Wi-Fi      |' + nn + '|' + nc + '|', body, sep='\n')
                                     nl.append(network)
-                                ns = int(input('\nselect your network: '))  # 'ns' -> Network select
-                                dns_loader_windows((dls[int(sd) - 1]), dls[int(sd) - 1])
+                                for i in range(1, len(nl) + 1):
+                                    valid_networks.append(str(i))
+                                while True:
+                                    ns = input('select your network: ')  # 'ns' -> Network select
+                                    if ns in valid_networks:
+                                        dns_loader_windows((dls[int(sd) - 1]), dls[int(sd) - 1])
+                                        break
+                                    else:
+                                        print('Please enter a valid network code.')
                         break
                     else:
-                        print('Please enter a valid code.')
+                        print('Please enter a valid DNS code.')
     case 'Linux':  # Linux section
         dl = 0
         dl_head = ('     ' + 42 * '_')  # 'dl_head' -> Dns list header
@@ -218,6 +245,7 @@ match system:
                         net_types = []
                         net_devices = []
                         connections = str(subprocess.run(['nmcli', 'con', 'show'],capture_output=True).stdout).strip("b'").split('\\n')
+                        dhcp_find0 = str(subprocess.run(['systemd-resolve', '--status'],capture_output=True).stdout).strip("b'").split('\\n')
                         for connection in range(1, len(connections) - 1):
                             net_names.append(str(connections[connection].split('  ')[0]))
                             net_types.append(str(connections[connection]).rstrip(' ').split('  ')[-2])
@@ -231,18 +259,55 @@ match system:
                             nd = (int(abs(float(len(net_devices[i]) - 19) // 2)) * ' ' + f'{net_devices[i]}' + int(abs(float(len(net_devices[i]) - 19) / 2)) * ' ')
                             nc = (int(abs(float(len(str(i)) - 14) // 2)) * ' ' + f'({i + 1})' + int(abs(float(len(str(i)) - 14) / 2)) * ' ')
                             print('    |' + nn + '|' + nt + '|' + nd + '|' + nc + '|', nl_body, sep='\n')
-                        ns = int(input('\nselect your network: '))
-                        slicer = net_names[ns - 1]
-                        slicer = slicer.replace(' ', r'\ ')
-                        os.system(f'nmcli con mod {slicer} ipv4.ignore-auto-dns no')
-                        print(f"Your DNS has been restored to its original state.\nGood luck!")
-                        time.sleep(2)
-                        os.system('clear')
+                        for i in range(1, len(net_names) + 1):
+                                    valid_networks.append(str(i))
+                        while True:
+                            ns = input('select your network: ')  # 'ns' -> Network select
+                            if ns in valid_networks:
+                                dhcp_find1 = str(dhcp_find0).find(net_devices[ns - 1])
+                                slicer = net_names[ns - 1]
+                                slicer = slicer.replace(' ', r'\ ')
+                                os.system(f'nmcli con mod {slicer} ipv4.ignore-auto-dns no')
+                                dhcp_choose = str(dhcp_find0)[dhcp_find1:dhcp_find1 + len(net_devices[ns - 1])]
+                                os.system(f'nmcli con down {slicer} && nmcli con up {slicer}')
+                                print(f"Your DNS has been restored to its original state.\nGood luck!")
+                                time.sleep(2)
+                                os.system('clear')
+                                break
+                            else:
+                                print('Please enter a valid network code.')
                     case _:
-                        dns_loader_linux((dls[int(sd) - 1]))
-                        print(f"You are now using the '{(dls[int(sd) - 1])}' DNS \nGood luck!")
-                        time.sleep(2)
-                        os.system('clear')
+                        net_names = []
+                        net_types = []
+                        net_devices = []
+                        connections = str(subprocess.run(['nmcli', 'con', 'show'],capture_output=True).stdout).strip("b'").split('\\n')
+                        for connection in range(1, len(connections) - 1):
+                            net_names.append(str(connections[connection].split('  ')[0]))
+                            net_types.append(str(connections[connection]).rstrip(' ').split('  ')[-2])
+                            net_devices.append(str(connections[connection]).rstrip(' ').split('  ')[-1])
+                        nl_head = ('    ' + 105 * '_')
+                        nl_body = ('    |' + 103 * '-' + '|')
+                        print(nl_head, '    |' + (18 * ' ') + 'Network name' + (18 * ' ') + '| Connection type |' + ' Connection device |' + ' Network number |', nl_body, sep='\n')
+                        for i in range(len(net_names)):
+                            nn = (int(abs(float(len(net_names[i]) - 48) // 2)) * ' ' + f'{net_names[i]}' + int(abs(float(len(net_names[i]) - 48) / 2)) * ' ')  # 'nn' -> Network name
+                            nt = (int(abs(float(len(net_types[i]) - 17) // 2)) * ' ' + f'{net_types[i]}' + int(abs(float(len(net_types[i]) - 17) / 2)) * ' ')
+                            nd = (int(abs(float(len(net_devices[i]) - 19) // 2)) * ' ' + f'{net_devices[i]}' + int(abs(float(len(net_devices[i]) - 19) / 2)) * ' ')
+                            nc = (int(abs(float(len(str(i)) - 14) // 2)) * ' ' + f'({i + 1})' + int(abs(float(len(str(i)) - 14) / 2)) * ' ')
+                            print('    |' + nn + '|' + nt + '|' + nd + '|' + nc + '|', nl_body, sep='\n')
+                        for i in range(1, len(net_names) + 1):
+                                    valid_networks.append(str(i))
+                        while True:
+                            ns = input('select your network: ')  # 'ns' -> Network select
+                            if ns in valid_networks:
+                                slicer = net_names[ns - 1]
+                                slicer = slicer.replace(' ', r'\ ')
+                                dns_loader_linux((dls[int(sd) - 1]))
+                                print(f"You are now using the '{(dls[int(sd) - 1])}' DNS \nGood luck!")
+                                time.sleep(2)
+                                os.system('clear')
+                                break
+                            else:
+                                print('Please enter a valid network code.')
                 break
             else:
                 print('Please enter a valid code.')
